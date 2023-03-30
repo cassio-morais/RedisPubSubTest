@@ -5,7 +5,7 @@ namespace RedisPubSubTest.Publisher
 {
     internal class Program
     {
-        private const string RedisConnectionString = "localhost:40551";
+         private const string RedisConnectionString = "localhost:40551";
         // private const string RedisConnectionString = "localhost:6379";
 
         private static ConnectionMultiplexer connection = ConnectionMultiplexer.Connect(RedisConnectionString, config =>
