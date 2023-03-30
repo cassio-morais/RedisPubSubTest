@@ -11,7 +11,7 @@ namespace RedisPubSubTest.Subscriber
         private static ConnectionMultiplexer connection = ConnectionMultiplexer.Connect(RedisConnectionString, config =>
         {
             config.User = "socket-notification";
-            config.Password = "Ke4wue1UNg5uisha";
+            config.Password = "lorota";
             config.AbortOnConnectFail = false;
             // SSL CONFIGURATION (cenário aws elasticache)
             config.Ssl = true;
@@ -27,18 +27,20 @@ namespace RedisPubSubTest.Subscriber
         static void Main(string[] args)
         {
             Console.WriteLine(connection.GetStatus());
+            var subscriber = connection.GetSubscriber();
 
             while (true)
             {
                 try
                 {
-                    var subscriber = connection.GetSubscriber();
+                  
                     Console.WriteLine("PING:" + subscriber.Ping());
 
-                    subscriber.SubscribeAsync(Channel, (channel, message) =>
+                    subscriber.Subscribe(Channel, (channel, message) =>
                     {
                         Console.WriteLine("CONSOLE: MENSAGEM RECEBIDA <- test-channel : " + message);
-                    });
+                       
+                    }, CommandFlags.FireAndForget);
 
                     Task.Delay(2000).Wait();
                 }

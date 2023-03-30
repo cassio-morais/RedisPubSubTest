@@ -11,7 +11,7 @@ namespace RedisPubSubTest.Publisher
         private static ConnectionMultiplexer connection = ConnectionMultiplexer.Connect(RedisConnectionString, config =>
         {
             config.User = "socket-notification";
-            config.Password = "Ke4wue1UNg5uisha";
+            config.Password = "lorota";
             config.AbortOnConnectFail = false;
             // SSL CONFIGURATION (cenário aws elasticache)
             config.Ssl = true;
@@ -37,7 +37,7 @@ namespace RedisPubSubTest.Publisher
 
                     var randomNumber = new Random().Next();
 
-                    pubsub.PublishAsync(Channel, $"Essa é uma mensagem de teste! nº: {randomNumber}");
+                    pubsub.Publish(Channel, $"Essa é uma mensagem de teste! nº: {randomNumber}", CommandFlags.FireAndForget);
 
                     Console.WriteLine($"CONSOLE: MENSAGEM ENVIADA nº: {randomNumber} -> test-channel");
 

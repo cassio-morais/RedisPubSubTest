@@ -7,7 +7,7 @@ namespace RedisPubSub.BackgroundServiceSubscriber
     {
         private static ConnectionMultiplexer _connection { get { return _lazyConnection.Value; } }
 
-        private static Lazy<ConnectionMultiplexer> _lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
+        private static Lazy<ConnectionMultiplexer> _lazyConnection = new(() =>
         {
             var redisConnectionString = "localhost:40551";
             // var redisConnectionString = "localhost:6379";
@@ -15,7 +15,7 @@ namespace RedisPubSub.BackgroundServiceSubscriber
             return ConnectionMultiplexer.Connect(redisConnectionString, config =>
             {
                 config.User = "socket-notification";
-                config.Password = "Ke4wue1UNg5uisha";
+                config.Password = "lorota";
                 config.AbortOnConnectFail = false;
                 // SSL CONFIGURATION (cenário aws elasticache)
                 config.Ssl = true;
